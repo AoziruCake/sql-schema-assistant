@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "sql-schema-assistant",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": [
+    // Enable Node.js API
+    "nodejs_compat",
+    // Allow fetching URLs from your app
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      // Must match the "name" field above
+      "service": "sql-schema-assistant"
+    }
+  ]
+  // Uncomment to enable incremental cache with Cloudflare R2:
+  // "r2_buckets": [
+  //   {
+  //     "binding": "NEXT_INC_CACHE_R2_BUCKET",
+  //     "bucket_name": "<YOUR_BUCKET_NAME>"
+  //   }
+  // ]
+}

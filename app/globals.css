@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased;
+}
+
+input,
+select,
+textarea {
+  @apply bg-slate-900 text-slate-100;
+}
+
+::selection {
+  background-color: rgb(56 189 248 / 0.5);
+}
+
