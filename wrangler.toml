@@ -10,12 +10,8 @@ compatibility_flags = [
   "global_fetch_strictly_public",
 ]
 
-[assets]
-directory = ".open-next/assets"
-binding = "ASSETS"
-
-[[rules]]
-type = "CompiledWasm"
-globs = ["**/*.wasm"]
-fallthrough = true
+# NOTE:
+# Pages では "ASSETS" という binding 名は予約されているため、
+# OpenNext 用の [assets] セクションと WASM rules は定義しません。
+# 静的アセット配信は pages_build_output_dir の指定に任せます。
 
