@@ -9,6 +9,14 @@
     // Allow fetching URLs from your app
     "global_fetch_strictly_public"
   ],
+  // Allow .wasm files to be bundled as WASM modules (e.g. resvg.wasm used by Next.js)
+  "rules": [
+    {
+      "type": "CompiledWasm",
+      "globs": ["**/*.wasm"],
+      "fallthrough": true
+    }
+  ],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
