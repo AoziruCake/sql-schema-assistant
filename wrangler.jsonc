@@ -9,6 +9,10 @@
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
+  },
+  "vars": {
+    "NODE_VERSION": "20",
+    "NEXT_ON_PAGES_ALLOW_WASM": "true"
   }
 }
 
