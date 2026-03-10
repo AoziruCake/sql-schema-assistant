@@ -1,0 +1,21 @@
+name = "sql-schema-assistant"
+main = ".open-next/worker.js"
+compatibility_date = "2024-12-30"
+
+# Pages が読むビルド出力ディレクトリ（OpenNext の静的アセット）
+pages_build_output_dir = ".open-next/assets"
+
+compatibility_flags = [
+  "nodejs_compat",
+  "global_fetch_strictly_public",
+]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+[[rules]]
+type = "CompiledWasm"
+globs = ["**/*.wasm"]
+fallthrough = true
+
