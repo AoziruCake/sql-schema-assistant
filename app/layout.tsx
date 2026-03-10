@@ -6,6 +6,22 @@ export const metadata: Metadata = {
   title: "SQL Schema Assistant",
   description:
     "Design database table schemas and generate SQL statements entirely in your browser. 100% local, privacy-first.",
+  openGraph: {
+    title: "SQL Schema Assistant",
+    description:
+      "Design database table schemas and generate SQL statements entirely in your browser. 100% local, privacy-first.",
+    url: "https://sql-schema-assistant.sugirep.com",
+    siteName: "SQL Schema Assistant",
+    images: ["/opengraph-image.png"],
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SQL Schema Assistant",
+    description:
+      "Design database table schemas and generate SQL statements entirely in your browser. 100% local, privacy-first.",
+    images: ["/opengraph-image.png"]
+  },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -29,12 +45,6 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="alternate icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-        <meta property="og:title" content="SQL Schema Assistant" />
-        <meta property="og:description" content="Design database table schemas and generate SQL statements entirely in your browser. 100% local, privacy-first." />
-        <meta property="og:image" content="/og-image.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="SQL Schema Assistant" />
-        <meta name="twitter:image" content="/og-image.png" />
       </head>
       <body className="min-h-screen bg-slate-950 text-slate-100">
         {children}
