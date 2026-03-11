@@ -539,6 +539,7 @@ export default function HomePage() {
   const [copyBlocked, setCopyBlocked] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
   const [suspendPersist, setSuspendPersist] = useState(false);
+  const [dirtyColumns, setDirtyColumns] = useState<Set<string>>(new Set());
   const [initialized, setInitialized] = useState(false);
   const [activeSqlTab, setActiveSqlTab] = useState<
     "create" | "insert" | "update" | "select"
@@ -684,18 +685,34 @@ export default function HomePage() {
     changes: Partial<ColumnDefinition>
   ) => {
     setColumns((prev) =>
-      prev.map((col, i) =>
-        i === index
-          ? {
-              ...col,
-              ...changes,
-              constraints: {
-                ...col.constraints,
-                ...(changes as ColumnDefinition).constraints
-              }
-            }
-          : col
-      )
+      prev.map((col, i) => {
+        if (i !== index) return col;
+        const updated: ColumnDefinition = {
+          ...col,
+          ...changes,
+          constraints: {
+            ...col.constraints,
+            ...(changes as ColumnDefinition).constraints
+          }
+        };
+
+        // マークを「触られた」状態に更新（名前かエイリアスが変更された場合）
+        if (
+          Object.prototype.hasOwnProperty.call(changes, "name") ||
+          Object.prototype.hasOwnProperty.call(changes, "alias")
+        ) {
+          const id = updated.id ?? col.id;
+          if (id) {
+            setDirtyColumns((prevDirty) => {
+              const next = new Set(prevDirty);
+              next.add(id);
+              return next;
+            });
+          }
+        }
+
+        return updated;
+      })
     );
   };
 
@@ -813,7 +830,17 @@ export default function HomePage() {
   };
 
   const handleDeleteColumn = (index: number) => {
-    setColumns((prev) => prev.filter((_, i) => i !== index));
+    setColumns((prev) => {
+      const toRemove = prev[index];
+      if (toRemove?.id) {
+        setDirtyColumns((prevDirty) => {
+          const next = new Set(prevDirty);
+          next.delete(toRemove.id as string);
+          return next;
+        });
+      }
+      return prev.filter((_, i) => i !== index);
+    });
   };
 
   const showToast = (message: string) => {
@@ -1363,6 +1390,7 @@ export default function HomePage() {
                         if (window.confirm(t.clearAllConfirmMessage)) {
                           setSuspendPersist(true);
                           setColumns([]);
+                          setDirtyColumns(new Set());
                           if (typeof window !== "undefined") {
                             window.localStorage.removeItem(LOCAL_STORAGE_KEY);
                           }
@@ -1408,10 +1436,14 @@ export default function HomePage() {
                             isFlashing={flashingIds.has(column.id ?? "")}
                             dialect={dialect}
                             nameValidationError={
-                              identifierErrors.get(column.id ?? "")?.name ?? null
+                              dirtyColumns.has(column.id ?? "")
+                                ? identifierErrors.get(column.id ?? "")?.name ?? null
+                                : null
                             }
                             aliasValidationError={
-                              identifierErrors.get(column.id ?? "")?.alias ?? null
+                              dirtyColumns.has(column.id ?? "")
+                                ? identifierErrors.get(column.id ?? "")?.alias ?? null
+                                : null
                             }
                             labels={{
                               columnName: t.columnName,
