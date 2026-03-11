@@ -987,9 +987,8 @@ export default function HomePage() {
   return (
     <TooltipProvider delayDuration={150}>
       <div className="relative flex min-h-screen flex-col bg-slate-950 text-slate-100">
-      {/* Vercel ダッシュボード風のシンプルなトップバー */}
       <header className="border-b border-slate-800/70 bg-slate-950/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-3 py-3 md:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-3 py-3 sm:flex-row sm:items-center sm:justify-between md:px-6">
           <div className="flex items-center gap-3">
             <div className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-700 bg-slate-950 text-[10px] font-semibold tracking-tight text-slate-100">
               SQL
@@ -1236,7 +1235,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <div className="grid flex-1 gap-4 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:gap-6">
+        <div className="grid flex-1 grid-cols-1 gap-4 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:gap-6">
           {/* Left: Table definition editor */}
           <section className="flex flex-col rounded-xl border border-slate-800/80 bg-slate-950 p-4 md:p-5">
             <div className="mb-4 flex items-center justify-between gap-3">
@@ -1627,7 +1626,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative flex-1 rounded-xl border border-slate-800/80 bg-slate-950/80">
+            <div className="relative flex-1 min-h-[280px] rounded-xl border border-slate-800/80 bg-slate-950/80">
               <div className="absolute inset-0 overflow-y-auto overflow-x-hidden rounded-xl">
                 <SyntaxHighlighter
                   language="sql"
