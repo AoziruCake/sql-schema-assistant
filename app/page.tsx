@@ -55,8 +55,7 @@ import {
   type IdentifierErrorCode
 } from "@/lib/identifiers";
 import { Activity, Copy, Github, GripVertical } from "lucide-react";
-
-const APP_VERSION = "1.0.0";
+import { APP_VERSION } from "@/lib/app-version";
 
 const SUGGESTED_COLUMN_NAMES = [
   "id",
