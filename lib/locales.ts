@@ -66,6 +66,11 @@ type Messages = {
   shortcutsFooter: string;
   shortcutAddColumnHint: string;
   shortcutBulkAddHint: string;
+  securityDialogTitle: string;
+  securityDialogLocalProcessing: string;
+  securityDialogPrivacyAnalytics: string;
+  securityDialogOpenSource: string;
+  securityDialogCloseLabel: string;
 };
 
 export const dictionaries: Record<Locale, Messages> = {
@@ -146,7 +151,15 @@ export const dictionaries: Record<Locale, Messages> = {
     shortcutAddColumnHint:
       "Shortcut: Alt+N / Option+N",
     shortcutBulkAddHint:
-      "Shortcut: Ctrl+B / Cmd+B, Ctrl+Shift+B"
+      "Shortcut: Ctrl+B / Cmd+B, Ctrl+Shift+B",
+    securityDialogTitle: "Security & Privacy Policy",
+    securityDialogLocalProcessing:
+      "Local Processing: All SQL processing and code generation happen entirely within your browser using JavaScript. Your database schema data is never sent to our servers.",
+    securityDialogPrivacyAnalytics:
+      "Privacy & Analytics: We use Cloudflare Web Analytics to monitor basic site performance and visitor counts. This data is anonymized and contains no personal information or SQL data.",
+    securityDialogOpenSource:
+      "Open Source: You can verify our security claims by reviewing the source code on GitHub.",
+    securityDialogCloseLabel: "Got it!"
   },
   ja: {
     appTitle: "SQL Schema Assistant",
@@ -225,7 +238,15 @@ export const dictionaries: Record<Locale, Messages> = {
     shortcutAddColumnHint:
       "ショートカット: Alt+N / Option+N",
     shortcutBulkAddHint:
-      "ショートカット: Ctrl+B / Cmd+B, Ctrl+Shift+B"
+      "ショートカット: Ctrl+B / Cmd+B, Ctrl+Shift+B",
+      securityDialogTitle: "セキュリティとプライバシーポリシー",
+      securityDialogLocalProcessing:
+        "ローカル処理: すべてのSQL処理およびコード生成はJavaScriptを使用し、ブラウザ内のみで完結します。データベースのスキーマデータが外部サーバーに送信されることはありません。",
+      securityDialogPrivacyAnalytics:
+        "プライバシーと分析: サイトの基本的なパフォーマンス測定と訪問者数の把握のために、Cloudflare Web Analyticsを使用しています。このデータは匿名化されており、個人情報やSQLデータが含まれることはありません。",
+      securityDialogOpenSource:
+        "オープンソース: GitHub上のソースコードを公開しています。セキュリティに関する実装内容はいつでもご確認いただけます。",
+      securityDialogCloseLabel: "OK",
   }
 };
 

@@ -1010,23 +1010,12 @@ export default function HomePage() {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Security &amp; Privacy Policy</DialogTitle>
+                      <DialogTitle>{t.securityDialogTitle}</DialogTitle>
                       <DialogDescription asChild>
                         <div className="space-y-3 pt-2 text-xs text-slate-400">
-                          <p>
-                            <span className="font-semibold text-slate-200">Local Processing:</span>{" "}
-                            All SQL processing and code generation happen entirely within your browser using JavaScript.
-                            Your database schema data is never sent to our servers.
-                          </p>
-                          <p>
-                            <span className="font-semibold text-slate-200">Privacy &amp; Analytics:</span>{" "}
-                            We use Cloudflare Web Analytics to monitor basic site performance and visitor counts. This
-                            data is anonymized and contains no personal information or SQL data.
-                          </p>
-                          <p>
-                            <span className="font-semibold text-slate-200">Open Source:</span>{" "}
-                            You can verify our security claims by reviewing the source code on GitHub.
-                          </p>
+                          <p>{t.securityDialogLocalProcessing}</p>
+                          <p>{t.securityDialogPrivacyAnalytics}</p>
+                          <p>{t.securityDialogOpenSource}</p>
                         </div>
                       </DialogDescription>
                     </DialogHeader>
@@ -1038,7 +1027,7 @@ export default function HomePage() {
                           variant="outline"
                           className="border-slate-700 bg-slate-900/80 text-[11px] text-slate-100"
                         >
-                          Got it!
+                          {t.securityDialogCloseLabel}
                         </Button>
                       </DialogClose>
                     </div>
