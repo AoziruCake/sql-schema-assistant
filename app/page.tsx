@@ -999,9 +999,51 @@ export default function HomePage() {
                 <span className="text-[11px] font-medium text-slate-100">
                   {t.appTitle}
                 </span>
-                <span className="hidden rounded-full border border-slate-800 px-2 py-0.5 text-[10px] text-slate-400 md:inline">
-                  {t.headerBadge}
-                </span>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button
+                      type="button"
+                      className="hidden items-center rounded-full border border-slate-800 px-2 py-0.5 text-[10px] text-slate-400 transition-colors duration-150 hover:border-slate-600 hover:bg-slate-900/80 hover:text-slate-100 md:inline-flex"
+                    >
+                      {t.headerBadge}
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Security &amp; Privacy Policy</DialogTitle>
+                      <DialogDescription asChild>
+                        <div className="space-y-3 pt-2 text-xs text-slate-400">
+                          <p>
+                            <span className="font-semibold text-slate-200">Local Processing:</span>{" "}
+                            All SQL processing and code generation happen entirely within your browser using JavaScript.
+                            Your database schema data is never sent to our servers.
+                          </p>
+                          <p>
+                            <span className="font-semibold text-slate-200">Privacy &amp; Analytics:</span>{" "}
+                            We use Cloudflare Web Analytics to monitor basic site performance and visitor counts. This
+                            data is anonymized and contains no personal information or SQL data.
+                          </p>
+                          <p>
+                            <span className="font-semibold text-slate-200">Open Source:</span>{" "}
+                            You can verify our security claims by reviewing the source code on GitHub.
+                          </p>
+                        </div>
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="mt-4 flex justify-end">
+                      <DialogClose asChild>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          className="border-slate-700 bg-slate-900/80 text-[11px] text-slate-100"
+                        >
+                          Got it!
+                        </Button>
+                      </DialogClose>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
               <p className="hidden text-[11px] text-slate-500 md:block">
                 {t.appSubtitle}
