@@ -54,10 +54,9 @@ import {
   validateIdentifier,
   type IdentifierErrorCode
 } from "@/lib/identifiers";
-import { Activity, Copy, GripVertical } from "lucide-react";
-import pkg from "@/package.json";
+import { Activity, Copy, Github, GripVertical } from "lucide-react";
 
-const APP_VERSION: string = pkg.version;
+const APP_VERSION = "1.0.0";
 
 const SUGGESTED_COLUMN_NAMES = [
   "id",
@@ -1632,21 +1631,33 @@ export default function HomePage() {
             <span className="font-mono text-slate-600">
               {t.shortcutsFooter}
             </span>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <a
-                  href={`https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v${APP_VERSION}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-slate-600 hover:text-slate-400 transition-colors duration-150"
-                >
-                  v{APP_VERSION}
-                </a>
-              </TooltipTrigger>
-              <TooltipContent side="top">
-                <span className="text-[11px]">View Release Notes</span>
-              </TooltipContent>
-            </Tooltip>
+            <div className="mt-1 flex items-center gap-3">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href={`https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v${APP_VERSION}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-slate-600 transition-colors duration-150 hover:text-slate-300"
+                  >
+                    v{APP_VERSION}
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <span className="text-[11px]">View Release Notes</span>
+                </TooltipContent>
+              </Tooltip>
+              <a
+                href="https://github.com/AoziruCake/sql-schema-assistant"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-slate-800/80 px-2 py-1 text-[10px] text-slate-500 transition-colors duration-150 hover:border-slate-600 hover:text-slate-200"
+                aria-label="View on GitHub"
+              >
+                <Github className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">View on GitHub</span>
+              </a>
+            </div>
           </div>
         </footer>
       </main>
