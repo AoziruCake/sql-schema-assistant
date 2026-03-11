@@ -54,7 +54,7 @@ import {
   validateIdentifier,
   type IdentifierErrorCode
 } from "@/lib/identifiers";
-import { Activity, Copy, Github, GripVertical } from "lucide-react";
+import { Activity, Copy, Github, GripVertical, Save } from "lucide-react";
 import { APP_VERSION } from "@/lib/app-version";
 
 const SUGGESTED_COLUMN_NAMES = [
@@ -1081,30 +1081,53 @@ export default function HomePage() {
               </span>
             </div>
 
-            <div className="hidden items-center gap-2 md:flex">
+            <div className="flex items-center gap-2">
               <Dialog>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <DialogTrigger asChild>
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-2 rounded-full border border-slate-800/80 bg-slate-900/60 px-3 py-1 text-[10px] text-slate-300 shadow-sm backdrop-blur hover:border-slate-700 hover:bg-slate-900/90"
-                      >
-                        <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-950/80 text-[9px] text-slate-200">
-                          ⌘
-                        </span>
-                        <span className="font-medium tracking-wide">
-                          {t.projectStorageSectionTitle}
-                        </span>
-                      </button>
-                    </DialogTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">
-                    <span className="whitespace-nowrap text-[11px]">
-                      {t.projectStorageButtonTooltip}
-                    </span>
-                  </TooltipContent>
-                </Tooltip>
+                <div className="flex items-center gap-2">
+                  {/* Mobile: icon-only Project Storage trigger */}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DialogTrigger asChild>
+                        <button
+                          type="button"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-800/80 bg-slate-900/60 text-slate-300 shadow-sm backdrop-blur hover:border-slate-700 hover:bg-slate-900/90 sm:hidden"
+                          aria-label={t.projectStorageSectionTitle}
+                        >
+                          <Save className="h-3.5 w-3.5" />
+                        </button>
+                      </DialogTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <span className="whitespace-nowrap text-[11px]">
+                        {t.projectStorageButtonTooltip}
+                      </span>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  {/* Desktop: text + icon Project Storage trigger */}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DialogTrigger asChild>
+                        <button
+                          type="button"
+                          className="hidden items-center gap-2 rounded-full border border-slate-800/80 bg-slate-900/60 px-3 py-1 text-[10px] text-slate-300 shadow-sm backdrop-blur hover:border-slate-700 hover:bg-slate-900/90 sm:inline-flex"
+                        >
+                          <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-950/80 text-[9px] text-slate-200">
+                            ⌘
+                          </span>
+                          <span className="font-medium tracking-wide">
+                            {t.projectStorageSectionTitle}
+                          </span>
+                        </button>
+                      </DialogTrigger>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <span className="whitespace-nowrap text-[11px]">
+                        {t.projectStorageButtonTooltip}
+                      </span>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>{t.projectStorageDialogTitle}</DialogTitle>
@@ -1197,9 +1220,9 @@ export default function HomePage() {
           </DialogContent>
         </Dialog>
 
-        {/* compact stats row to give a dashboard feel */}
+        {/* compact stats row to give a dashboard feel (desktop only) */}
         {/* overview cards */}
-        <section className="grid grid-cols-1 gap-2 text-xs md:grid-cols-3">
+        <section className="hidden grid-cols-1 gap-2 text-xs md:grid md:grid-cols-3">
           <div className="flex items-center justify-between rounded-lg border border-slate-800/80 bg-slate-950 px-3 py-2">
             <div className="space-y-0.5">
               <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-slate-500">
