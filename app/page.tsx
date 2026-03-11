@@ -1687,6 +1687,25 @@ export default function HomePage() {
                 <Github className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">View on GitHub</span>
               </a>
+              <a
+                href="https://x.com/Sugirep"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-slate-800/80 px-2 py-1 text-[10px] text-slate-500 transition-colors duration-150 hover:border-slate-600 hover:text-slate-200"
+                aria-label="View on X"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5"
+                >
+                  <path
+                    d="M18.5 3H21l-6.5 7.4L21.5 21H16l-4-5.3L7 21H3.5L10.2 13.1 3.5 3H9l3.6 4.8L18.5 3Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span className="hidden sm:inline">Visit X</span>
+              </a>
             </div>
           </div>
         </footer>
