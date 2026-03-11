@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "SQL Schema Assistant",
     description:
       "Design database table schemas and generate SQL statements entirely in your browser. 100% local, privacy-first.",
-    url: "https://sql-schema-assistant.sugirep.com",
+    url: "https://sql.sugirep.com/",
     siteName: "SQL Schema Assistant",
     images: ["/opengraph-image.png"],
     type: "website"
