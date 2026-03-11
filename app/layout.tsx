@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sql-schema-assistant.sugirep.com"),
+  metadataBase: new URL("https://sql.sugirep.com"),
   title: "SQL Schema Assistant",
   description:
     "Design database table schemas and generate SQL statements entirely in your browser. 100% local, privacy-first.",
