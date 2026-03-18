@@ -301,7 +301,95 @@ function SortableColumnRow({
         isDragging && "border-sky-500/70 bg-slate-900/80 shadow-lg"
       )}
     >
-      <div className="flex items-start justify-between gap-3">
+      {/* ── Mobile layout (sm未満): ドラッグハンドル非表示、Name+Typeを横並びにコンパクト化 ── */}
+      <div className="flex items-start gap-2 sm:hidden">
+        <div className="grid flex-1 grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-2">
+          <div className="space-y-1">
+            <span className="text-[10px] font-medium text-slate-400">
+              {labels.columnName}
+            </span>
+            <Input
+              ref={nameInputRef}
+              value={column.name}
+              list="column-name-suggestions"
+              data-col-name-input={index}
+              onChange={(e) => onChange(index, { ...column, name: e.target.value })}
+              onClear={() => onChange(index, { ...column, name: "" })}
+              className={cn(
+                (isDuplicate || nameValidationError) &&
+                  "border-red-500 focus-visible:ring-red-500/40",
+                isFlashing && "animate-flash-error border-red-500"
+              )}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  if (e.shiftKey) {
+                    e.preventDefault();
+                    if (index > 0) {
+                      document.querySelector<HTMLInputElement>(`[data-col-name-input="${index - 1}"]`)?.focus();
+                    }
+                  } else if (isLastRow) {
+                    if (column.name.trim() !== "") { e.preventDefault(); onAddColumn(); }
+                  } else {
+                    e.preventDefault();
+                    document.querySelector<HTMLInputElement>(`[data-col-name-input="${index + 1}"]`)?.focus();
+                  }
+                }
+              }}
+              placeholder={labels.columnNamePlaceholder}
+            />
+            {isDuplicate && (
+              <p className="text-[10px] font-medium text-red-400">{labels.duplicateColumnName}</p>
+            )}
+            {!isDuplicate && nameValidationError && (
+              <p className="text-[10px] font-medium text-red-400">{identifierErrorMessage(nameValidationError)}</p>
+            )}
+          </div>
+          <div className="space-y-1">
+            <span className="text-[10px] font-medium text-slate-400">
+              {isSelectTab ? labels.columnAlias : labels.columnType}
+            </span>
+            {isSelectTab ? (
+              <>
+                <Input
+                  value={column.alias ?? ""}
+                  onChange={(e) => onChange(index, { ...column, alias: e.target.value })}
+                  placeholder={labels.columnAliasPlaceholder}
+                  onClear={() => onChange(index, { ...column, alias: "" })}
+                  className={cn(aliasValidationError && "border-red-500 focus-visible:ring-red-500/40")}
+                />
+                {aliasValidationError && (
+                  <p className="text-[10px] font-medium text-red-400">{identifierErrorMessage(aliasValidationError)}</p>
+                )}
+              </>
+            ) : (
+              <Select
+                value={column.type}
+                onChange={(e) => onChange(index, { ...column, type: e.target.value })}
+              >
+                <option value="">{labels.columnType}</option>
+                {availableTypes.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </Select>
+            )}
+          </div>
+        </div>
+        {/* 削除ボタン: 右端・タップしやすいサイズ */}
+        <button
+          type="button"
+          className="mt-5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md border border-red-900/60 bg-red-950/40 text-red-300 hover:bg-red-900/60"
+          title={labels.deleteColumnLabel}
+          onClick={() => onDelete(index)}
+        >
+          <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
+            <path d="M9 3h6m-7 3h8m-7 0v11a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M10 10v6m4-6v6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      {/* ── Desktop layout (sm以上): ドラッグハンドル + 従来レイアウト維持 ── */}
+      <div className="hidden items-start justify-between gap-3 sm:flex">
         <div className="grid flex-1 grid-cols-1 gap-2 md:grid-cols-[auto_minmax(0,1.25fr)_minmax(0,1fr)]">
           <div className="flex items-center justify-center md:pt-5">
             <button
