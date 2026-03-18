@@ -17,7 +17,8 @@ export const DIALECTS: DialectDefinition[] = [
     nameKey: "dialectPostgres",
     compatByLocale: {
       en: "Compatible with v12, v13, v14, v15, v16+",
-      ja: "対応バージョン: v12, v13, v14, v15, v16 以降"
+      ja: "対応バージョン: v12, v13, v14, v15, v16 以降",
+      es: "Compatible con v12, v13, v14, v15, v16+"
     }
   },
   {
@@ -25,7 +26,8 @@ export const DIALECTS: DialectDefinition[] = [
     nameKey: "dialectMySQL",
     compatByLocale: {
       en: "Compatible with v8.0+",
-      ja: "対応バージョン: v8.0 以降"
+      ja: "対応バージョン: v8.0 以降",
+      es: "Compatible con v8.0+"
     }
   },
   {
@@ -33,7 +35,8 @@ export const DIALECTS: DialectDefinition[] = [
     nameKey: "dialectSQLite",
     compatByLocale: {
       en: "Compatible with v3.x",
-      ja: "対応バージョン: v3.x"
+      ja: "対応バージョン: v3.x",
+      es: "Compatible con v3.x"
     }
   }
 ];
