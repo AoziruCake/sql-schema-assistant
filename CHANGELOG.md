@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1](https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v1.0.1) — 2026-03-08
+
+### Changed
+
+- **Mobile column row layout** — Drag handle hidden on small screens (below `sm`). Column name and type fields are laid out side-by-side in a compact two-column grid. Delete button enlarged (`h-9 w-9`) and anchored to the right edge for easier tapping. Desktop drag-and-drop behaviour is unchanged.
+- **Deferred column validation** — Validation errors for newly added empty columns are no longer shown immediately. Errors appear only after a user has edited the Name or Alias field of that column (`isDirty` flag).
+- **Mobile responsive improvements** — Stats cards (COLUMNS, PRIMARY KEYS, NOT NULL) hidden on mobile. Project Storage button shows icon-only on mobile, text + icon on desktop. SQL preview area given a minimum height so it remains visible on small screens.
+- **JSON messages extracted** — Hardcoded `en` / `ja` dictionaries moved from `lib/locales.ts` to `messages/en.json` and `messages/ja.json`, making it easy to add new languages in future.
+
+---
+
 ## [1.0.0](https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v1.0.0) — 2026-03-03
 
 ### Added
