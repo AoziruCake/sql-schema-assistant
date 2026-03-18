@@ -636,6 +636,11 @@ export default function HomePage() {
   const [includeExplain, setIncludeExplain] = useState(false);
   const [bulkPatternInput, setBulkPatternInput] = useState("");
   const [bulkAddOpen, setBulkAddOpen] = useState(false);
+  type BulkValidationError = {
+    name: string;
+    reason: "empty" | "duplicateInBatch" | "duplicateWithExisting" | IdentifierErrorCode;
+  };
+  const [bulkValidationErrors, setBulkValidationErrors] = useState<BulkValidationError[]>([]);
   const [flashingIds, setFlashingIds] = useState<Set<string>>(new Set());
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -841,6 +846,45 @@ export default function HomePage() {
     const expanded = tokens.flatMap(expandBulkPattern);
     if (!expanded.length) return;
 
+    // バリデーション
+    const errors: BulkValidationError[] = [];
+    const seenInBatch = new Set<string>();
+    const existingNames = new Set(columns.map((c) => c.name.trim().toLowerCase()));
+
+    for (const name of expanded) {
+      const trimmed = name.trim();
+
+      if (!trimmed) {
+        errors.push({ name: "(empty)", reason: "empty" });
+        continue;
+      }
+
+      const lower = trimmed.toLowerCase();
+
+      if (seenInBatch.has(lower)) {
+        errors.push({ name: trimmed, reason: "duplicateInBatch" });
+        continue;
+      }
+      seenInBatch.add(lower);
+
+      if (existingNames.has(lower)) {
+        errors.push({ name: trimmed, reason: "duplicateWithExisting" });
+        continue;
+      }
+
+      const identifierError = validateIdentifier(trimmed);
+      if (identifierError) {
+        errors.push({ name: trimmed, reason: identifierError });
+      }
+    }
+
+    if (errors.length > 0) {
+      setBulkValidationErrors(errors);
+      return;
+    }
+
+    setBulkValidationErrors([]);
+
     setColumns((prev) => {
       const next = [...prev];
       let firstNewId: string | null = null;
@@ -861,6 +905,7 @@ export default function HomePage() {
     });
 
     setBulkPatternInput("");
+    setBulkAddOpen(false);
   };
 
   useEffect(() => {
@@ -1288,7 +1333,7 @@ export default function HomePage() {
       </header>
 
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-4 px-3 py-4 md:gap-6 md:px-6 md:py-8">
-        <Dialog open={bulkAddOpen} onOpenChange={setBulkAddOpen}>
+        <Dialog open={bulkAddOpen} onOpenChange={(open) => { setBulkAddOpen(open); if (!open) setBulkValidationErrors([]); }}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>{t.bulkAddDialogTitle}</DialogTitle>
@@ -1302,11 +1347,45 @@ export default function HomePage() {
                 <Textarea
                   rows={4}
                   value={bulkPatternInput}
-                  onChange={(e) => setBulkPatternInput(e.target.value)}
+                  onChange={(e) => { setBulkPatternInput(e.target.value); setBulkValidationErrors([]); }}
                   placeholder={t.bulkAddTextareaPlaceholder}
-                  className="resize-none bg-slate-950 text-xs"
+                  className={cn(
+                    "resize-none bg-slate-950 text-xs",
+                    bulkValidationErrors.length > 0 && "border-red-500 focus-visible:ring-red-500/40"
+                  )}
                 />
               </div>
+
+              {bulkValidationErrors.length > 0 && (
+                <div className="rounded-md border border-red-900/60 bg-red-950/30 p-2.5 text-xs">
+                  <p className="mb-1.5 font-medium text-red-400">
+                    {t.bulkAddValidationTitle}
+                  </p>
+                  <ul className="space-y-1">
+                    {bulkValidationErrors.map((err, i) => {
+                      const reasonLabel = (() => {
+                        switch (err.reason) {
+                          case "empty":                  return t.bulkAddErrorEmpty;
+                          case "duplicateInBatch":       return t.bulkAddErrorDuplicateInBatch;
+                          case "duplicateWithExisting":  return t.bulkAddErrorDuplicateWithExisting;
+                          case "reservedWord":           return t.identifierErrorReservedWord;
+                          case "startsWithDigit":        return t.identifierErrorStartsWithDigit;
+                          case "invalidChars":           return t.identifierErrorInvalidChars;
+                          case "tooLong":                return t.identifierErrorTooLong;
+                        }
+                      })();
+                      return (
+                        <li key={i} className="flex gap-1.5 text-red-300">
+                          <span className="font-mono font-semibold">{err.name}</span>
+                          <span className="text-red-400/80">—</span>
+                          <span>{reasonLabel}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+
               <div className="flex justify-end gap-2">
                 <DialogClose asChild>
                   <Button
@@ -1318,16 +1397,14 @@ export default function HomePage() {
                     {t.bulkAddCancel}
                   </Button>
                 </DialogClose>
-                <DialogClose asChild>
-                  <Button
-                    type="button"
-                    size="sm"
-                    className="text-[11px]"
-                    onClick={handleBulkAddColumns}
-                  >
-                    {t.bulkAddApply}
-                  </Button>
-                </DialogClose>
+                <Button
+                  type="button"
+                  size="sm"
+                  className="text-[11px]"
+                  onClick={handleBulkAddColumns}
+                >
+                  {t.bulkAddApply}
+                </Button>
               </div>
             </div>
           </DialogContent>
