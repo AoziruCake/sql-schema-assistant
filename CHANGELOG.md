@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0](https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v1.1.0) — 2026-03-08
+
+### Added
+
+- **Spanish (ES) locale** — Full UI translation for Spanish-speaking engineers. Language selector updated from a binary EN/JPN toggle to a three-button segmented control (EN / JPN / ES).
+- **Bulk Add validation** — Column names are validated before being added: SQL identifier rules (reserved words, digit-start, invalid chars, max 63 characters), duplicate detection within the batch, and duplicate detection against existing columns. Errors are displayed inside the dialog without closing it.
+- **In-app Changelog page** — Release history is now accessible at `/changelog`. The footer version badge links to this page instead of GitHub releases.
+
+---
+
 ## [1.0.1](https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v1.0.1) — 2026-03-08
 
 ### Changed

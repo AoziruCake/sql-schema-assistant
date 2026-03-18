@@ -1882,16 +1882,14 @@ export default function HomePage() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a
-                    href={`https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v${APP_VERSION}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/changelog"
                     className="font-mono text-slate-600 transition-colors duration-150 hover:text-slate-300"
                   >
                     v{APP_VERSION}
                   </a>
                 </TooltipTrigger>
                 <TooltipContent side="top">
-                  <span className="text-[11px]">View Release Notes</span>
+                  <span className="text-[11px]">{t.changelogViewReleaseNotes}</span>
                 </TooltipContent>
               </Tooltip>
               <a
