@@ -21,7 +21,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Tooltip,
@@ -998,8 +997,8 @@ export default function HomePage() {
     }
   };
 
-  const handleToggleLocale = (checked: boolean) => {
-    setLocale(checked ? "ja" : "en");
+  const handleSetLocale = (next: Locale) => {
+    setLocale(next);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -1040,7 +1039,7 @@ export default function HomePage() {
       if (typeof p.dialect === "string" && VALID_DIALECTS.includes(p.dialect as SqlDialect)) {
         setDialect(p.dialect as SqlDialect);
       }
-      const VALID_LOCALES: Locale[] = ["en", "ja"];
+      const VALID_LOCALES: Locale[] = ["en", "ja", "es"];
       if (typeof p.locale === "string" && VALID_LOCALES.includes(p.locale as Locale)) {
         setLocale(p.locale as Locale);
       }
@@ -1174,26 +1173,25 @@ export default function HomePage() {
                 <span className="text-emerald-400">{t.saveStatusSaved}</span>
               )}
             </div>
-            <div className="flex items-center gap-2 text-[11px] text-slate-400">
-              <span
-                className={
-                  locale === "en" ? "font-medium text-slate-100" : "text-slate-500"
-                }
-              >
-                EN
-              </span>
-              <Switch
-                checked={locale === "ja"}
-                onCheckedChange={handleToggleLocale}
-                aria-label={t.languageToggleLabel}
-              />
-              <span
-                className={
-                  locale === "ja" ? "font-medium text-slate-100" : "text-slate-500"
-                }
-              >
-                JPN
-              </span>
+            <div
+              className="flex items-center rounded-md border border-slate-700 bg-slate-900 p-0.5 text-[11px]"
+              aria-label={t.languageToggleLabel}
+            >
+              {(["en", "ja", "es"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => handleSetLocale(lang)}
+                  className={cn(
+                    "rounded px-2 py-0.5 font-medium transition-colors",
+                    locale === lang
+                      ? "bg-slate-700 text-slate-100"
+                      : "text-slate-500 hover:text-slate-300"
+                  )}
+                >
+                  {lang === "en" ? "EN" : lang === "ja" ? "JPN" : "ES"}
+                </button>
+              ))}
             </div>
 
             <div className="flex items-center gap-2">
