@@ -1880,19 +1880,12 @@ export default function HomePage() {
             </span>
 
             {/* Changelog link row */}
-            <div className="mt-1 flex items-center gap-1.5">
-              <a
-                href="/changelog"
-                className="font-mono text-slate-500 transition-colors duration-150 hover:text-sky-400"
-              >
-                🕒 v{APP_VERSION} · {t.changelogViewReleaseNotes}
-              </a>
-              {/* Ping notification dot */}
-              <span className="relative flex h-2 w-2 flex-shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500" />
-              </span>
-            </div>
+            <a
+              href="/changelog"
+              className="mt-1 font-mono text-slate-500 transition-colors duration-150 hover:text-sky-400"
+            >
+              v{APP_VERSION} · {t.changelogViewReleaseNotes}
+            </a>
 
             {/* GitHub / X buttons */}
             <div className="mt-0.5 flex items-center gap-3">
