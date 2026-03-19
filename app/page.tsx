@@ -1871,27 +1871,31 @@ export default function HomePage() {
         </div>
 
         <footer className="pb-4 text-center text-[11px] text-slate-500">
-          <div className="flex flex-col items-center gap-1 text-[10px] text-slate-500">
+          <div className="flex flex-col items-center gap-1.5 text-[10px] text-slate-500">
             <span className="font-mono">
               Runs entirely in your browser · No network calls
             </span>
             <span className="font-mono text-slate-600">
               {t.shortcutsFooter}
             </span>
-            <div className="mt-1 flex items-center gap-3">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a
-                    href="/changelog"
-                    className="font-mono text-slate-600 transition-colors duration-150 hover:text-slate-300"
-                  >
-                    v{APP_VERSION}
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                  <span className="text-[11px]">{t.changelogViewReleaseNotes}</span>
-                </TooltipContent>
-              </Tooltip>
+
+            {/* Changelog link row */}
+            <div className="mt-1 flex items-center gap-1.5">
+              <a
+                href="/changelog"
+                className="font-mono text-slate-500 transition-colors duration-150 hover:text-sky-400"
+              >
+                🕒 v{APP_VERSION} · {t.changelogViewReleaseNotes}
+              </a>
+              {/* Ping notification dot */}
+              <span className="relative flex h-2 w-2 flex-shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-500" />
+              </span>
+            </div>
+
+            {/* GitHub / X buttons */}
+            <div className="mt-0.5 flex items-center gap-3">
               <a
                 href="https://github.com/AoziruCake/sql-schema-assistant"
                 target="_blank"
