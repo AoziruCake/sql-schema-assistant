@@ -1,6 +1,7 @@
 {
   "appTitle": "SQL Schema Assistant",
   "appSubtitle": "Design table schemas and generate SQL statements entirely in your browser.",
+  "seoDescription": "Design database table schemas and generate SQL — CREATE TABLE, INSERT, UPDATE, SELECT — entirely in your browser. Supports PostgreSQL, MySQL, and SQLite. 100% local processing; your data never leaves the browser.",
   "headerBadge": "\ud83d\udd12 100% Local & Secure",
   "languageToggleLabel": "Language",
   "sqlDialectLabel": "SQL dialect",

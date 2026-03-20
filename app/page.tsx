@@ -648,6 +648,15 @@ export default function HomePage() {
     setMounted(true);
   }, []);
 
+  // Sync html[lang] and meta[description] with the active locale
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    const metaDesc = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    );
+    if (metaDesc) metaDesc.content = t.seoDescription;
+  }, [locale, t]);
+
   const baseDefinition = useMemo(
     () => ({
       tableName,

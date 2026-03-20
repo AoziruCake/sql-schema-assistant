@@ -1,6 +1,7 @@
 {
   "appTitle": "SQL Schema Assistant",
   "appSubtitle": "ブラウザ内だけでテーブル定義を設計し、SQL文を生成します。",
+  "seoDescription": "PostgreSQL・MySQL・SQLiteに対応したSQLスキーマ設計ツール。テーブル定義をブラウザ上で組み立て、CREATE TABLE・INSERT・UPDATE・SELECT文を即座に生成できます。すべての処理はブラウザ内で完結し、データが外部サーバーに送信されることはありません。",
   "headerBadge": "🔒 100% Local & Secure",
   "languageToggleLabel": "言語",
   "sqlDialectLabel": "SQL 方言",

@@ -42,6 +42,11 @@ export default function ChangelogPage() {
     }
   }, []);
 
+  // Sync html[lang] with the active locale
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   const t = getMessages(locale);
 
   const sectionLabel = (type: SectionType): string => {

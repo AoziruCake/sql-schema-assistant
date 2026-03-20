@@ -1,6 +1,7 @@
 {
   "appTitle": "SQL Schema Assistant",
   "appSubtitle": "Diseña esquemas de tablas y genera sentencias SQL directamente en tu navegador.",
+  "seoDescription": "Herramienta de diseño de esquemas SQL compatible con PostgreSQL, MySQL y SQLite. Define tablas en el navegador y genera sentencias CREATE TABLE, INSERT, UPDATE y SELECT al instante. Todo el procesamiento ocurre localmente — tus datos nunca salen del navegador.",
   "headerBadge": "🔒 100% Local & Seguro",
   "languageToggleLabel": "Idioma",
   "sqlDialectLabel": "Dialecto SQL",
