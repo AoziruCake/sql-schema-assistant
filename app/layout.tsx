@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  verification: {
+    google: "IgEgFVNelFE6sAFE9-QTioHI1IIaFTNP0jARbZtPUAo",
+  },
   openGraph: {
     title: "SQL Schema Assistant",
     description: DESCRIPTION,
