@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 import {
@@ -53,8 +53,22 @@ import {
   validateIdentifier,
   type IdentifierErrorCode
 } from "@/lib/identifiers";
-import { Activity, Copy, Github, GripVertical, Save } from "lucide-react";
+import {
+  Activity,
+  AlertTriangle,
+  Copy,
+  Github,
+  GripVertical,
+  Save
+} from "lucide-react";
 import { APP_VERSION } from "@/lib/app-version";
+import {
+  createExportPayload,
+  ImportServiceError,
+  parseImportedProjectJson,
+  type ImportedProject
+} from "@/lib/import-service";
+import { formatImportedSchemaDetail } from "@/lib/import-error-details";
 
 const SUGGESTED_COLUMN_NAMES = [
   "id",
@@ -643,6 +657,13 @@ export default function HomePage() {
   const [bulkValidationErrors, setBulkValidationErrors] = useState<BulkValidationError[]>([]);
   const [flashingIds, setFlashingIds] = useState<Set<string>>(new Set());
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastTone, setToastTone] = useState<"success" | "error">("error");
+  const [importCardDragActive, setImportCardDragActive] = useState(false);
+  const [projectStorageOpen, setProjectStorageOpen] = useState(false);
+  const [projectStorageImportError, setProjectStorageImportError] = useState<
+    string | null
+  >(null);
+  const importInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -984,9 +1005,145 @@ export default function HomePage() {
     });
   };
 
-  const showToast = (message: string) => {
+  const showToast = (message: string, tone: "success" | "error" = "error") => {
+    setToastTone(tone);
     setToastMessage(message);
     setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const handleExportProject = () => {
+    const payload = createExportPayload({
+      dialect,
+      tableName,
+      schemaName,
+      columns
+    });
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: "application/json"
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    const datePart = new Date().toISOString().slice(0, 10);
+    link.href = url;
+    link.download = `sql-schema-v${APP_VERSION}_${datePart}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportSuccess = (project: ImportedProject) => {
+    const hasCurrentData =
+      tableName.trim() !== "" ||
+      schemaName.trim() !== "" ||
+      columns.some((c) => c.name.trim() !== "" || c.type.trim() !== "");
+    if (hasCurrentData) {
+      const confirmed = window.confirm(t.projectStorageImportConfirmOverwrite);
+      if (!confirmed) return;
+    }
+
+    const firstTable = project.data.tables[0];
+    if (!firstTable) {
+      setProjectStorageImportError(t.projectStorageImportErrorInvalidSchema);
+      showToast(t.projectStorageImportFailedToast, "error");
+      return;
+    }
+
+    setSuspendPersist(true);
+    setDialect(project.data.dialect);
+    setTableName(firstTable.name.slice(0, 256));
+    setSchemaName((firstTable.schemaName ?? "").slice(0, 256));
+    setColumns(
+      firstTable.columns.map((c) => ({
+        id: createColumnId(),
+        name: c.name.slice(0, 256),
+        type: c.type.slice(0, 128),
+        alias: c.alias?.slice(0, 256),
+        constraints: {
+          primaryKey: Boolean(c.constraints.primaryKey),
+          notNull: Boolean(c.constraints.notNull),
+          index: Boolean(c.constraints.index)
+        }
+      }))
+    );
+    setDirtyColumns(new Set());
+    setProjectStorageImportError(null);
+    showToast(t.projectStorageImportSuccess, "success");
+  };
+
+  const handleImportError = (code: string, details?: string) => {
+    const formatImportDetails = (rawDetails?: string) => {
+      if (!rawDetails) return null;
+      return formatImportedSchemaDetail(rawDetails, t);
+    };
+
+    const shortToast = () => showToast(t.projectStorageImportFailedToast, "error");
+
+    switch (code) {
+      case "FILE_TOO_LARGE":
+        setProjectStorageImportError(t.projectStorageImportErrorFileTooLarge);
+        shortToast();
+        break;
+      case "INVALID_JSON":
+        setProjectStorageImportError(t.projectStorageImportErrorInvalidJson);
+        shortToast();
+        break;
+      case "VERSION_TOO_NEW": {
+        const fileVersion = details ?? "";
+        const msg = t.projectStorageImportErrorVersionTooNew.replace(
+          "{fileVersion}",
+          fileVersion
+        );
+        setProjectStorageImportError(msg);
+        shortToast();
+        break;
+      }
+      default:
+        setProjectStorageImportError(
+          details
+            ? `${t.projectStorageImportErrorInvalidSchema} (${formatImportDetails(details) ?? details})`
+            : t.projectStorageImportErrorInvalidSchema
+        );
+        shortToast();
+        break;
+    }
+  };
+
+  const processImportFile = async (file: File) => {
+    setProjectStorageImportError(null);
+    if (file.size > 2 * 1024 * 1024) {
+      handleImportError("FILE_TOO_LARGE");
+      return;
+    }
+    try {
+      const text = await file.text();
+      const imported = parseImportedProjectJson(text);
+      handleImportSuccess(imported);
+    } catch (err) {
+      if (err instanceof ImportServiceError) {
+        handleImportError(err.code, err.details);
+        return;
+      }
+      handleImportError("INVALID_SCHEMA");
+    }
+  };
+
+  const handleImportFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    event.currentTarget.value = "";
+    if (!file) return;
+    await processImportFile(file);
+  };
+
+  const handleImportCardDrop = async (event: DragEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setImportCardDragActive(false);
+    const file = event.dataTransfer.files?.[0];
+    if (!file) return;
+    await processImportFile(file);
   };
 
   const flashColumns = (ids: string[]) => {
@@ -1249,7 +1406,13 @@ export default function HomePage() {
             </div>
 
             <div className="flex items-center gap-2">
-              <Dialog>
+              <Dialog
+                open={projectStorageOpen}
+                onOpenChange={(open) => {
+                  setProjectStorageOpen(open);
+                  if (!open) setProjectStorageImportError(null);
+                }}
+              >
                 <div className="flex items-center gap-2">
                   {/* Mobile: icon-only Project Storage trigger */}
                   <Tooltip>
@@ -1302,36 +1465,93 @@ export default function HomePage() {
                       {t.projectStorageDialogBody}
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="mt-3 space-y-3">
-                    <div className="grid grid-cols-1 gap-2 text-[11px] text-slate-500 sm:grid-cols-2">
-                      <div className="rounded-lg border border-slate-800/70 bg-slate-950/80 px-3 py-2">
-                        <p className="font-mono text-[10px] text-slate-400">
+                  <div className="mt-4 space-y-4">
+                    <input
+                      ref={importInputRef}
+                      type="file"
+                      accept="application/json,.json"
+                      className="hidden"
+                      onChange={handleImportFileChange}
+                    />
+
+                    <div className="grid grid-cols-1 gap-3 text-[11px] text-slate-500 sm:grid-cols-2">
+                      <button
+                        type="button"
+                        onClick={handleExportProject}
+                        className="cursor-pointer rounded-lg border border-slate-800/70 bg-slate-950/80 px-3 py-3 text-left transition-colors hover:bg-slate-800/70"
+                      >
+                        <p className="font-mono text-[10px] text-slate-300">
                           {t.projectStorageExportLabel}
                         </p>
                         <p className="mt-1 text-[10px] text-slate-500">
                           JSON snapshot of your current schema.
                         </p>
-                      </div>
-                      <div className="rounded-lg border border-slate-800/70 bg-slate-950/80 px-3 py-2">
-                        <p className="font-mono text-[10px] text-slate-400">
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => importInputRef.current?.click()}
+                        onDragEnter={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setImportCardDragActive(true);
+                        }}
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (!importCardDragActive) setImportCardDragActive(true);
+                        }}
+                        onDragLeave={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setImportCardDragActive(false);
+                        }}
+                        onDrop={handleImportCardDrop}
+                        className={cn(
+                          "cursor-pointer rounded-lg border bg-slate-950/80 px-3 py-3 text-left transition-colors hover:bg-slate-800/70",
+                          importCardDragActive
+                            ? "border-sky-500 ring-1 ring-sky-500/40"
+                            : "border-slate-800/70"
+                        )}
+                      >
+                        <p className="font-mono text-[10px] text-slate-300">
                           {t.projectStorageImportLabel}
                         </p>
                         <p className="mt-1 text-[10px] text-slate-500">
                           Restore or fork a saved project configuration.
                         </p>
-                      </div>
+                        <p className="mt-2 text-[10px] text-slate-400">
+                          {t.projectStorageImportDropLabel}
+                        </p>
+                      </button>
                     </div>
+
+                    {projectStorageImportError && (
+                      <div
+                        className="flex gap-2.5 rounded-md border border-red-900/60 bg-red-950/40 p-2.5 text-xs shadow-sm"
+                        role="alert"
+                      >
+                        <AlertTriangle
+                          className="mt-0.5 h-4 w-4 shrink-0 text-red-200"
+                          aria-hidden
+                        />
+                        <p className="whitespace-pre-wrap break-words font-mono text-[11px] leading-relaxed text-white">
+                          {projectStorageImportError}
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex justify-end">
-                      <DialogTrigger asChild>
+                      <DialogClose asChild>
                         <Button
                           type="button"
                           size="sm"
                           variant="outline"
                           className="border-slate-700 bg-slate-900/80 text-[11px] text-slate-100"
                         >
-                          Close
+                          {t.projectStorageCloseLabel}
                         </Button>
-                      </DialogTrigger>
+                      </DialogClose>
                     </div>
                   </div>
                 </DialogContent>
@@ -1935,11 +2155,24 @@ export default function HomePage() {
       {/* Toast notification */}
       {toastMessage && (
         <div className="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
-          <div className="flex items-center gap-2 rounded-lg border border-red-500/40 bg-slate-900 px-4 py-2.5 text-[12px] font-medium text-red-300 shadow-lg ring-1 ring-red-500/20">
-            <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-red-400" fill="none" aria-hidden="true">
-              <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z" fill="currentColor" fillOpacity="0.3"/>
-              <path d="M8 4.75a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4.75ZM8 11a.875.875 0 1 1 0-1.75A.875.875 0 0 1 8 11Z" fill="currentColor"/>
-            </svg>
+          <div
+            className={cn(
+              "flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-[12px] font-medium shadow-lg ring-1",
+              toastTone === "success"
+                ? "border border-emerald-500/40 text-emerald-300 ring-emerald-500/20"
+                : "border border-red-500/40 text-red-300 ring-red-500/20"
+            )}
+          >
+            {toastTone === "success" ? (
+              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-emerald-400" fill="none" aria-hidden="true">
+                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM11 6.4a.75.75 0 1 1 1.06 1.06L7.5 12.02a.75.75 0 0 1-1.06 0L3.94 9.52A.75.75 0 0 1 5 8.46l1.97 1.97L11 6.4Z" fill="currentColor" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0 text-red-400" fill="none" aria-hidden="true">
+                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z" fill="currentColor" fillOpacity="0.3"/>
+                <path d="M8 4.75a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4.75ZM8 11a.875.875 0 1 1 0-1.75A.875.875 0 0 1 8 11Z" fill="currentColor"/>
+              </svg>
+            )}
             {toastMessage}
           </div>
         </div>

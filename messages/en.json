@@ -81,6 +81,20 @@
   "securityDialogLocalProcessing": "Local Processing: All SQL processing and code generation happen entirely within your browser using JavaScript. Your database schema data is never sent to our servers.",
   "securityDialogPrivacyAnalytics": "Privacy & Analytics: We use Cloudflare Web Analytics to monitor basic site performance and visitor counts. This data is anonymized and contains no personal information or SQL data.",
   "securityDialogOpenSource": "Open Source: You can verify our security claims by reviewing the source code on GitHub.",
-  "securityDialogCloseLabel": "Got it!"
+  "securityDialogCloseLabel": "Got it!",
+  "projectStorageImportChooseFile": "Import JSON file",
+  "projectStorageImportFailedToast": "Import failed",
+  "projectStorageImportSuccess": "Project imported successfully.",
+  "projectStorageImportErrorFileTooLarge": "File is too large. Please use a JSON file of 2MB or less.",
+  "projectStorageImportErrorInvalidJson": "Invalid JSON format.",
+  "projectStorageImportErrorInvalidSchema": "Invalid project schema. Required fields are missing or malformed.",
+  "projectStorageImportDetailInvalidDialect": "Invalid dialect (use postgres, mysql, or sqlite)",
+  "projectStorageImportDetailStringTooSmall": "Text must not be empty",
+  "projectStorageImportDetailArrayTooSmall": "At least one item is required",
+  "projectStorageImportDetailInvalidInput": "Invalid value type",
+  "projectStorageImportErrorVersionTooNew": "This file was created in a newer version (v{fileVersion}). Please refresh your browser to update the app.",
+  "projectStorageImportConfirmOverwrite": "Current data will be replaced. Continue?",
+  "projectStorageImportDropLabel": "Drop JSON file here",
+  "projectStorageCloseLabel": "Close"
 }
 

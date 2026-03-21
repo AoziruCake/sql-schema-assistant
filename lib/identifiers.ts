@@ -25,6 +25,17 @@ export type IdentifierErrorCode =
   | "invalidChars"
   | "tooLong";
 
+const IDENTIFIER_ERROR_CODES = new Set<string>([
+  "reservedWord",
+  "startsWithDigit",
+  "invalidChars",
+  "tooLong"
+]);
+
+export function isIdentifierErrorCode(s: string): s is IdentifierErrorCode {
+  return IDENTIFIER_ERROR_CODES.has(s);
+}
+
 /**
  * Returns an error code if the identifier is invalid, or null if it is valid.
  * Pass skipEmpty=true to allow empty strings (used for optional alias).

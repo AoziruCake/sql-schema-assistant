@@ -81,6 +81,20 @@
   "securityDialogLocalProcessing": "ローカル処理: すべてのSQL処理およびコード生成はJavaScriptを使用し、ブラウザ内のみで完結します。データベースのスキーマデータが外部サーバーに送信されることはありません。",
   "securityDialogPrivacyAnalytics": "プライバシーと分析: サイトの基本的なパフォーマンス測定と訪問者数の把握のために、Cloudflare Web Analyticsを使用しています。このデータは匿名化されており、個人情報やSQLデータが含まれることはありません。",
   "securityDialogOpenSource": "オープンソース: GitHub上のソースコードを公開しています。セキュリティに関する実装内容はいつでもご確認いただけます。",
-  "securityDialogCloseLabel": "OK"
+  "securityDialogCloseLabel": "OK",
+  "projectStorageImportChooseFile": "JSONファイルをインポート",
+  "projectStorageImportFailedToast": "インポートに失敗しました",
+  "projectStorageImportSuccess": "プロジェクトをインポートしました。",
+  "projectStorageImportErrorFileTooLarge": "ファイルサイズが大きすぎます。2MB以下のJSONファイルを指定してください。",
+  "projectStorageImportErrorInvalidJson": "JSONの形式が不正です。",
+  "projectStorageImportErrorInvalidSchema": "プロジェクトJSONの構造が不正です。必須フィールドが不足しているか形式が違います。",
+  "projectStorageImportDetailInvalidDialect": "dialect は postgres / mysql / sqlite のいずれかを指定してください",
+  "projectStorageImportDetailStringTooSmall": "文字列は1文字以上である必要があります",
+  "projectStorageImportDetailArrayTooSmall": "配列には1件以上の要素が必要です",
+  "projectStorageImportDetailInvalidInput": "値の型が正しくありません",
+  "projectStorageImportErrorVersionTooNew": "このファイルは新しいバージョン (v{fileVersion}) で作成されています。ブラウザを更新して最新版を利用してください。",
+  "projectStorageImportConfirmOverwrite": "現在のデータは上書きされます。続行しますか？",
+  "projectStorageImportDropLabel": "ここにJSONファイルをドロップ",
+  "projectStorageCloseLabel": "閉じる"
 }
 

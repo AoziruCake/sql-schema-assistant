@@ -81,5 +81,19 @@
   "securityDialogLocalProcessing": "Procesamiento local: Todo el procesamiento SQL y la generación de código ocurren completamente dentro de tu navegador usando JavaScript. Los datos de tu esquema de base de datos nunca se envían a nuestros servidores.",
   "securityDialogPrivacyAnalytics": "Privacidad y analíticas: Utilizamos Cloudflare Web Analytics para monitorear el rendimiento básico del sitio y el conteo de visitantes. Estos datos son anonimizados y no contienen información personal ni datos SQL.",
   "securityDialogOpenSource": "Código abierto: Puedes verificar nuestras afirmaciones de seguridad revisando el código fuente en GitHub.",
-  "securityDialogCloseLabel": "¡Entendido!"
+  "securityDialogCloseLabel": "¡Entendido!",
+  "projectStorageImportChooseFile": "Importar archivo JSON",
+  "projectStorageImportFailedToast": "Error al importar",
+  "projectStorageImportSuccess": "Proyecto importado correctamente.",
+  "projectStorageImportErrorFileTooLarge": "El archivo es demasiado grande. Usa un JSON de 2 MB o menos.",
+  "projectStorageImportErrorInvalidJson": "Formato JSON inválido.",
+  "projectStorageImportErrorInvalidSchema": "Esquema de proyecto inválido. Faltan campos obligatorios o tienen tipos incorrectos.",
+  "projectStorageImportDetailInvalidDialect": "Dialecto no válido (usa postgres, mysql o sqlite)",
+  "projectStorageImportDetailStringTooSmall": "El texto no puede estar vacío",
+  "projectStorageImportDetailArrayTooSmall": "Se requiere al menos un elemento",
+  "projectStorageImportDetailInvalidInput": "Tipo de valor no válido",
+  "projectStorageImportErrorVersionTooNew": "Este archivo fue creado en una versión más reciente (v{fileVersion}). Por favor, actualiza tu navegador.",
+  "projectStorageImportConfirmOverwrite": "Los datos actuales se reemplazarán. ¿Deseas continuar?",
+  "projectStorageImportDropLabel": "Suelta aquí el archivo JSON",
+  "projectStorageCloseLabel": "Cerrar"
 }
