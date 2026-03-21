@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0](https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v1.2.0) — 2026-03-21
+
+### Added
+
+- **Project JSON export & import** — Project Storage modal: download the current schema as a versioned JSON snapshot (`version`, `exportedAt`, `data.tables[]`); restore via file picker or drag-and-drop (2MB limit).
+- **Import validation** — Zod schema for v1.1.0 payloads plus shared SQL identifier rules (`lib/validators.ts`); legacy v1 export shape is migrated automatically.
+- **Localized import errors** — Identifier issues and common Zod messages are translated (EN / JA / ES); detailed errors show inline in the modal with a short toast summary.
+
+---
+
 ## [1.1.0](https://github.com/AoziruCake/sql-schema-assistant/releases/tag/v1.1.0) — 2026-03-08
 
 ### Added
@@ -117,7 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- **`.gitignore` hardened** — Sensitive and generated files are excluded from version control.
+- `**.gitignore` hardened** — Sensitive and generated files are excluded from version control.
 - **Source audit** — No secrets, credentials, or machine-specific paths found in the codebase.
 - **Safe rendering** — User input is never injected into the DOM as raw HTML.
 - **Input validation** — Persisted and user-supplied data is validated before use.

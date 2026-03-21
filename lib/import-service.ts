@@ -90,7 +90,7 @@ export function createExportPayload(input: {
   columns: ColumnDefinition[];
 }): ImportedProject {
   return {
-    version: "1.1.0",
+    version: APP_VERSION,
     exportedAt: new Date().toISOString(),
     data: {
       dialect: input.dialect,

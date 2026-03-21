@@ -2,7 +2,7 @@
 
 > Design database table schemas and generate SQL statements — entirely in your browser.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](./package.json)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](./package.json)
 [![License](https://img.shields.io/badge/license-private-lightgrey.svg)]()
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6?logo=typescript)](https://www.typescriptlang.org/)

@@ -15,6 +15,32 @@ export type VersionEntry = {
 
 export const changelog: VersionEntry[] = [
   {
+    version: "1.2.0",
+    date: "2026-03-21",
+    sections: [
+      {
+        type: "Added",
+        items: {
+          en: [
+            "Project JSON export & import — Project Storage modal: download a versioned JSON snapshot of the schema; restore via file picker or drag-and-drop (2MB max).",
+            "Import validation — Zod schema for v1.1.0 payloads with shared SQL identifier rules; legacy v1 JSON is migrated on import.",
+            "Localized import errors — identifier and common schema messages in EN / JA / ES; detailed errors inline in the modal with a short failure toast.",
+          ],
+          ja: [
+            "プロジェクトJSONのエクスポート・インポート — Project Storageモーダルからスキーマをバージョン付きJSONでダウンロード。ファイル選択またはドラッグ＆ドロップで復元（最大2MB）。",
+            "インポート検証 — v1.1.0形式をZodで検証し、SQL識別子ルールを共有。旧v1エクスポートはインポート時に自動移行。",
+            "インポートエラーの多言語化 — 識別子・スキーマ関連メッセージをEN/JA/ESで表示。詳細はモーダル内インライン、トーストは簡潔な失敗通知。",
+          ],
+          es: [
+            "Exportación e importación de JSON del proyecto — modal Project Storage: descarga una instantánea JSON versionada del esquema; restauración con selector de archivo o arrastrar y soltar (máx. 2 MB).",
+            "Validación de importación — esquema Zod para cargas v1.1.0 con reglas compartidas de identificadores SQL; JSON legado v1 se migra al importar.",
+            "Errores de importación localizados — mensajes de identificadores y esquema en EN / JA / ES; detalles en el modal y toast breve de error.",
+          ],
+        },
+      },
+    ],
+  },
+  {
     version: "1.1.0",
     date: "2026-03-08",
     sections: [
