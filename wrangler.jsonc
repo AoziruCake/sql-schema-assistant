@@ -1,12 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "sql-schema-assistant",
-  // "main" は Pages では不要な場合が多いため削除またはコメントアウト
+  "main": ".open-next/worker.js",
   "compatibility_date": "2025-03-14",
   "compatibility_flags": [
     "nodejs_compat",
     "global_fetch_strictly_public",
-    "transform_source_maps" // エラー時に場所を特定しやすくするフラグ
+    "transform_source_maps"
   ],
   "assets": {
     "directory": ".open-next/assets",
