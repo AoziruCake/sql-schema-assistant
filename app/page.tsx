@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type DragEvent } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
+import SqlPreview from "@/components/sql-preview";
 import {
   DndContext,
   PointerSensor,
@@ -2075,25 +2074,7 @@ export default function HomePage() {
 
             <div className="relative flex-1 min-h-[280px] rounded-xl border border-slate-800/80 bg-slate-950/80">
               <div className="absolute inset-0 overflow-y-auto overflow-x-hidden rounded-xl">
-                <SyntaxHighlighter
-                  language="sql"
-                  style={okaidia}
-                  customStyle={{
-                    margin: 0,
-                    background: "transparent",
-                    fontSize: "0.75rem",
-                    lineHeight: 1.6,
-                    padding: "0.75rem 0.9rem",
-                    fontFamily:
-                      'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-all",
-                    overflowX: "hidden"
-                  }}
-                  wrapLongLines
-                >
-                  {sql}
-                </SyntaxHighlighter>
+                <SqlPreview sql={sql} />
               </div>
             </div>
           </section>
