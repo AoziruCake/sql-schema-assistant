@@ -67,6 +67,7 @@
   "bulkAddErrorDuplicateWithExisting": "Ya existe en la tabla",
   "bulkAddErrorEmpty": "El nombre no puede estar vacío",
   "shortcutsFooter": "Atajos: Alt+N / Option+N (Agregar) · Enter (Fila siguiente) · Shift+Enter (Fila anterior) · Ctrl+B / Cmd+B (Lote)",
+  "footerCopyright": "\u00a9 2026 Sugirep. All rights reserved.",
   "shortcutAddColumnHint": "Atajo: Alt+N / Option+N",
   "shortcutBulkAddHint": "Atajo: Ctrl+B / Cmd+B, Ctrl+Shift+B",
   "changelogPageTitle": "Historial de versiones",

@@ -67,6 +67,7 @@
   "bulkAddErrorDuplicateWithExisting": "テーブルに同名のカラムが既に存在します",
   "bulkAddErrorEmpty": "カラム名を空にすることはできません",
   "shortcutsFooter": "ショートカット: Alt+N / Option+N（追加）· Enter（次の行へ）· Shift+Enter（前の行へ）· Ctrl+B / Cmd+B（Bulk Add）",
+  "footerCopyright": "\u00a9 2026 Sugirep. All rights reserved.",
   "shortcutAddColumnHint": "ショートカット: Alt+N / Option+N",
   "shortcutBulkAddHint": "ショートカット: Ctrl+B / Cmd+B, Ctrl+Shift+B",
   "changelogPageTitle": "リリース履歴",

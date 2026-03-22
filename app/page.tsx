@@ -2129,6 +2129,10 @@ export default function HomePage() {
                 <span className="hidden sm:inline">Visit X</span>
               </a>
             </div>
+
+            <p className="mt-3 text-[10px] text-slate-600">
+              {t.footerCopyright}
+            </p>
           </div>
         </footer>
       </main>
