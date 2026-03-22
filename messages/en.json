@@ -67,6 +67,7 @@
   "bulkAddErrorDuplicateWithExisting": "Already exists in the table",
   "bulkAddErrorEmpty": "Name cannot be empty",
   "shortcutsFooter": "Shortcuts: Alt+N / Option+N (Add) \u00b7 Enter (Next row) \u00b7 Shift+Enter (Prev row) \u00b7 Ctrl+B / Cmd+B (Bulk)",
+  "footerCopyright": "\u00a9 2026 Sugirep. All rights reserved.",
   "shortcutAddColumnHint": "Shortcut: Alt+N / Option+N",
   "shortcutBulkAddHint": "Shortcut: Ctrl+B / Cmd+B, Ctrl+Shift+B",
   "changelogPageTitle": "Release History",

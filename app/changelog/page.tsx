@@ -143,14 +143,19 @@ export default function ChangelogPage() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-10 flex items-center justify-between border-t border-slate-800/60 pt-6 text-[11px] text-slate-600">
-          <span className="font-mono">SQL Schema Assistant</span>
-          <Link
-            href="/"
-            className="transition-colors hover:text-slate-400"
-          >
-            {t.changelogBackLink}
-          </Link>
+        <footer className="mt-10 flex flex-col gap-3 border-t border-slate-800/60 pt-6 text-[11px] text-slate-600">
+          <div className="flex items-center justify-between">
+            <span className="font-mono">SQL Schema Assistant</span>
+            <Link
+              href="/"
+              className="transition-colors hover:text-slate-400"
+            >
+              {t.changelogBackLink}
+            </Link>
+          </div>
+          <p className="text-center text-[10px] text-slate-600">
+            {t.footerCopyright}
+          </p>
         </footer>
       </div>
     </div>
