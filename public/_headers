@@ -1,3 +1,7 @@
+# NOTE:
+# This file is kept for source-of-truth/reference in this repository.
+# In production (Cloudflare Workers + OpenNext), security headers are managed via Cloudflare dashboard rules.
+
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
 
