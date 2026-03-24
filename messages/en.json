@@ -109,6 +109,6 @@
   "legalDisclaimerTitle": "Disclaimer",
   "legalDisclaimerBody": "THIS TOOL IS PROVIDED \"AS IS\" WITHOUT WARRANTIES OF ANY KIND. YOU ARE SOLELY RESPONSIBLE FOR REVIEWING, TESTING, AND VALIDATING ALL GENERATED SQL BEFORE USING IT IN DEVELOPMENT, STAGING, OR PRODUCTION ENVIRONMENTS.",
   "legalGoverningLawTitle": "Governing Law",
-  "legalGoverningLawBody": "These terms are governed by and construed in accordance with the laws of Japan, without regard to conflict of law principles."
+  "legalGoverningLawBody": "These terms are governed by and construed in accordance with the laws of Japan, without regard to conflict of law principles. The Tokyo District Court shall have exclusive jurisdiction as the court of first instance for any disputes arising from or related to these terms."
 }
 
