@@ -1,35 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getMessages, type Locale } from "@/lib/locales";
-
-const LOCAL_STORAGE_KEY = "local-sql-schema-assistant:v1";
+import { getMessages } from "@/lib/locales";
+import { useLegalLocale } from "@/lib/use-legal-locale";
 
 export default function PrivacyPage() {
-  const [locale, setLocale] = useState<Locale>("en");
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      if (
-        typeof data.locale === "string" &&
-        ["en", "ja", "es"].includes(data.locale)
-      ) {
-        setLocale(data.locale as Locale);
-      }
-    } catch {
-      // ignore parse errors
-    }
-  }, []);
-
-  const legalLocale: Locale = locale === "ja" ? "ja" : "en";
-
-  useEffect(() => {
-    document.documentElement.lang = legalLocale;
-  }, [legalLocale]);
+  const legalLocale = useLegalLocale();
 
   const t = getMessages(legalLocale);
 
