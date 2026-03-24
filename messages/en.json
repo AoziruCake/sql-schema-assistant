@@ -96,6 +96,19 @@
   "projectStorageImportErrorVersionTooNew": "This file was created in a newer version (v{fileVersion}). Please refresh your browser to update the app.",
   "projectStorageImportConfirmOverwrite": "Current data will be replaced. Continue?",
   "projectStorageImportDropLabel": "Drop JSON file here",
-  "projectStorageCloseLabel": "Close"
+  "projectStorageCloseLabel": "Close",
+  "footerTerms": "Terms",
+  "footerPrivacy": "Privacy",
+  "legalBackToApp": "← Back to app",
+  "termsPageTitle": "Terms of Use",
+  "termsPageIntro": "Please review the following terms before using SQL Schema Assistant.",
+  "privacyPageTitle": "Privacy Policy",
+  "privacyPageIntro": "This policy explains how SQL Schema Assistant handles your data.",
+  "privacySectionDataHandlingTitle": "Data Handling",
+  "privacySectionDataHandlingBody": "All schema design and SQL generation are processed locally in your browser. We do not collect, store, or transmit your schema contents to application servers.",
+  "legalDisclaimerTitle": "Disclaimer",
+  "legalDisclaimerBody": "THIS TOOL IS PROVIDED \"AS IS\" WITHOUT WARRANTIES OF ANY KIND. YOU ARE SOLELY RESPONSIBLE FOR REVIEWING, TESTING, AND VALIDATING ALL GENERATED SQL BEFORE USING IT IN DEVELOPMENT, STAGING, OR PRODUCTION ENVIRONMENTS.",
+  "legalGoverningLawTitle": "Governing Law",
+  "legalGoverningLawBody": "These terms are governed by and construed in accordance with the laws of Japan, without regard to conflict of law principles."
 }
 

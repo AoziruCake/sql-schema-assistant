@@ -1360,6 +1360,23 @@ export default function HomePage() {
               <p className="hidden text-[11px] text-slate-500 md:block">
                 {t.appSubtitle}
               </p>
+              <div className="mt-0.5 hidden items-center gap-2 text-[10px] text-slate-500 md:flex">
+                <a
+                  href="/terms"
+                  className="font-medium transition-colors duration-150 hover:text-sky-400"
+                >
+                  {t.footerTerms}
+                </a>
+                <span aria-hidden="true" className="text-slate-700">
+                  |
+                </span>
+                <a
+                  href="/privacy"
+                  className="font-medium transition-colors duration-150 hover:text-sky-400"
+                >
+                  {t.footerPrivacy}
+                </a>
+              </div>
             </div>
           </div>
 
@@ -2133,6 +2150,23 @@ export default function HomePage() {
             <p className="mt-3 text-[10px] text-slate-600">
               {t.footerCopyright}
             </p>
+            <div className="flex items-center gap-3 text-[10px] text-slate-500">
+              <a
+                href="/terms"
+                className="font-medium transition-colors duration-150 hover:text-sky-400"
+              >
+                {t.footerTerms}
+              </a>
+              <span aria-hidden="true" className="text-slate-700">
+                |
+              </span>
+              <a
+                href="/privacy"
+                className="font-medium transition-colors duration-150 hover:text-sky-400"
+              >
+                {t.footerPrivacy}
+              </a>
+            </div>
           </div>
         </footer>
       </main>
