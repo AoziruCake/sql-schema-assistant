@@ -96,5 +96,18 @@
   "projectStorageImportErrorVersionTooNew": "Este archivo fue creado en una versión más reciente (v{fileVersion}). Por favor, actualiza tu navegador.",
   "projectStorageImportConfirmOverwrite": "Los datos actuales se reemplazarán. ¿Deseas continuar?",
   "projectStorageImportDropLabel": "Suelta aquí el archivo JSON",
-  "projectStorageCloseLabel": "Cerrar"
+  "projectStorageCloseLabel": "Cerrar",
+  "footerTerms": "Términos",
+  "footerPrivacy": "Privacidad",
+  "legalBackToApp": "← Volver a la app",
+  "termsPageTitle": "Términos de uso",
+  "termsPageIntro": "Revisa los siguientes términos antes de usar SQL Schema Assistant.",
+  "privacyPageTitle": "Política de privacidad",
+  "privacyPageIntro": "Esta política explica cómo SQL Schema Assistant maneja tus datos.",
+  "privacySectionDataHandlingTitle": "Tratamiento de datos",
+  "privacySectionDataHandlingBody": "Todo el diseño de esquemas y la generación de SQL se procesan localmente en tu navegador. No recopilamos, almacenamos ni transmitimos el contenido de tu esquema a servidores de la aplicación.",
+  "legalDisclaimerTitle": "Descargo de responsabilidad (Disclaimer)",
+  "legalDisclaimerBody": "ESTA HERRAMIENTA SE PROPORCIONA \"TAL CUAL\" SIN GARANTÍAS DE NINGÚN TIPO. ERES EL ÚNICO RESPONSABLE DE REVISAR, PROBAR Y VALIDAR TODO EL SQL GENERADO ANTES DE USARLO EN ENTORNOS DE DESARROLLO, PRUEBAS O PRODUCCIÓN.",
+  "legalGoverningLawTitle": "Ley aplicable (Governing Law)",
+  "legalGoverningLawBody": "Estos términos se rigen e interpretan de conformidad con las leyes de Japón, sin considerar principios sobre conflicto de leyes."
 }

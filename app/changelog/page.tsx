@@ -80,6 +80,23 @@ export default function ChangelogPage() {
           <p className="text-sm text-slate-500">
             {changelog.length} releases &middot; Current v{APP_VERSION}
           </p>
+          <div className="flex items-center gap-3 text-[11px] text-slate-500">
+            <Link
+              href="/terms"
+              className="font-medium transition-colors duration-150 hover:text-sky-400"
+            >
+              {t.footerTerms}
+            </Link>
+            <span aria-hidden="true" className="text-slate-700">
+              |
+            </span>
+            <Link
+              href="/privacy"
+              className="font-medium transition-colors duration-150 hover:text-sky-400"
+            >
+              {t.footerPrivacy}
+            </Link>
+          </div>
         </div>
 
         {/* Entries */}
@@ -156,6 +173,23 @@ export default function ChangelogPage() {
           <p className="text-center text-[10px] text-slate-600">
             {t.footerCopyright}
           </p>
+          <div className="flex items-center justify-center gap-3 text-[10px] text-slate-500">
+            <Link
+              href="/terms"
+              className="font-medium transition-colors duration-150 hover:text-sky-400"
+            >
+              {t.footerTerms}
+            </Link>
+            <span aria-hidden="true" className="text-slate-700">
+              |
+            </span>
+            <Link
+              href="/privacy"
+              className="font-medium transition-colors duration-150 hover:text-sky-400"
+            >
+              {t.footerPrivacy}
+            </Link>
+          </div>
         </footer>
       </div>
     </div>

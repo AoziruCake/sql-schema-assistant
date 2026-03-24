@@ -96,6 +96,19 @@
   "projectStorageImportErrorVersionTooNew": "このファイルは新しいバージョン (v{fileVersion}) で作成されています。ブラウザを更新して最新版を利用してください。",
   "projectStorageImportConfirmOverwrite": "現在のデータは上書きされます。続行しますか？",
   "projectStorageImportDropLabel": "ここにJSONファイルをドロップ",
-  "projectStorageCloseLabel": "閉じる"
+  "projectStorageCloseLabel": "閉じる",
+  "footerTerms": "利用規約",
+  "footerPrivacy": "プライバシーポリシー",
+  "legalBackToApp": "← アプリに戻る",
+  "termsPageTitle": "利用規約",
+  "termsPageIntro": "SQL Schema Assistant を利用する前に、以下の内容をご確認ください。",
+  "privacyPageTitle": "プライバシーポリシー",
+  "privacyPageIntro": "SQL Schema Assistant におけるデータの取り扱いについて説明します。",
+  "privacySectionDataHandlingTitle": "データの取り扱い",
+  "privacySectionDataHandlingBody": "スキーマ設計とSQL生成は、すべてブラウザ内でローカル処理されます。アプリケーションサーバーがスキーマ内容を収集・保存・送信することはありません。",
+  "legalDisclaimerTitle": "免責事項（Disclaimer）",
+  "legalDisclaimerBody": "本ツールは「現状有姿（AS IS）」で提供され、明示または黙示を問わず一切の保証を行いません。生成されたSQLは、利用者自身の責任で必ず内容確認・検証・テストを行った上で、開発・検証・本番環境に適用してください。",
+  "legalGoverningLawTitle": "準拠法（Governing Law）",
+  "legalGoverningLawBody": "本規約および本ポリシーの解釈・適用は、日本法に準拠し、日本法に従って解釈されるものとします。"
 }
 
