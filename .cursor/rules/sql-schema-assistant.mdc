@@ -1,0 +1,37 @@
+---
+description: SQL Schema Assistant — constraints verified from repository source (Next, OpenNext, i18n, legal, import)
+alwaysApply: true
+---
+
+# SQL Schema Assistant（ソース実態に基づく制約）
+
+## ランタイムとビルド
+
+- **Next.js** は `package.json` で **`16.1.6` に固定**（`eslint-config-next` も同版）。バージョン変更は依存との整合を必ず確認すること。
+- **本番相当の配信**は Cloudflare Workers 上の OpenNext。`wrangler.jsonc` の `main` は **`.open-next/worker.js`**、`assets.directory` は **`.open-next/assets`**。`compatibility_flags` に **`nodejs_compat`** を含む。
+- **ローカル検証**は `package.json` の **`npm run preview`**（`opennextjs-cloudflare build` の後に `opennextjs-cloudflare preview`）。
+
+- **`@opennextjs/cloudflare`** は **`devDependencies` の `^1.17.1`**。バージョン変更時は Workers 互換を確認すること。
+
+## クライアントのみで読み込むハイライト
+
+- **`react-syntax-highlighter`** は Worker バンドルで Prism が走らないよう、**ブラウザでの遅延 import** にすること。実装の基準は **`components/sql-preview.tsx`**（`import("./sql-syntax-highlighter-inner")`）。
+
+## 国際化（i18n）
+
+- 辞書は **`messages/en.json`**, **`messages/ja.json`**, **`messages/es.json`**。型とユーティリティは **`lib/locales.ts`**（`Locale` は `"en" | "ja" | "es"`）。
+
+## 法務ページ（利用規約・プライバシー）
+
+- **`app/terms/page.tsx`** と **`app/privacy/page.tsx`** の表示文言取得には **`lib/use-legal-locale.ts` の `useLegalLocale()`** を使うこと（localStorage の `local-sql-schema-assistant:v1` と同期し、`document.documentElement.lang` を合わせる）。
+- **法務本文のロケール**はフック内のとおり **`ja` のときだけ日本語、それ以外は `en`**（`locale === "ja" ? "ja" : "en"`）。
+- **免責など重要文言**は利用者が見落としにくいよう、**枠線の強調・太字・赤系配色**などで視覚的に目立たせる（既存の法務ページのパターンに合わせる）。
+
+## データ入出力の検証
+
+- プロジェクト JSON の import/export など I/O 検証は **`zod`** を用いる（例: **`lib/import-service.ts`**）。
+- インポートエラーの**ユーザー向け詳細整形**は **`lib/import-error-details.ts`**（例: `app/page.tsx` から `formatImportedSchemaDetail` を利用）。
+
+## スタイリング
+
+- UI は **Tailwind CSS**（プロジェクト標準のユーティリティ＋既存コンポーネントに合わせる）。
